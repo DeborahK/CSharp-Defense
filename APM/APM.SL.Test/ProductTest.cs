@@ -7,7 +7,7 @@ namespace APM.SL.Test
   public class ProductTest
   {
     [Fact]
-    public void CalculateMarginShouldSucceedWhenValidInput50Percent()
+    public void CalculateMargin_WhenValidCost50PercentOfPrice_ShouldReturn50()
     {
       // Arrange
       string costInput = "50";
@@ -22,12 +22,12 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldSucceedWhenValidInputCostEqualPrice()
+    public void CalculateMargin_WhenValidCostOneThirdOfPrice_ShouldRoundTo33()
     {
       // Arrange
-      string costInput = "0";
-      string priceInput = "100";
-      decimal expected = 100;
+      string costInput = "100";
+      string priceInput = "150";
+      decimal expected = 33;
 
       // Act
       decimal actual = Product.CalculateMargin(costInput, priceInput);
@@ -37,12 +37,42 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldSucceedWhenValidInputSmallCost()
+    public void CalculateMargin_WhenValidCostEqualPrice_ShouldReturn0()
     {
+      // Arrange
+      string costInput = "100";
+      string priceInput = "100";
+      decimal expected = 0;
+
+      // Act
+      decimal actual = Product.CalculateMargin(costInput, priceInput);
+
+      // Assert
+      Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void CalculateMargin_WhenValidCostIsMoreThanPrice_ShouldReturnNegative()
+    {
+      // Arrange
+      string costInput = "120";
+      string priceInput = "100";
+      decimal expected = -20;
+
+      // Act
+      decimal actual = Product.CalculateMargin(costInput, priceInput);
+
+      // Assert
+      Assert.Equal(expected, actual);
+    }
+
+    [Fact]
+    public void CalculateMargin_WhenValidCostLessThan1_ShouldReturn100()
+    { 
       // Arrange
       string costInput = ".01";
-      string priceInput = "10";
-      decimal expected = 99.9M;
+      string priceInput = "100";
+      decimal expected = 100M;
 
       // Act
       decimal actual = Product.CalculateMargin(costInput, priceInput);
@@ -52,12 +82,12 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldSucceedWhenValidInputLargeCost()
+    public void CalculateMargin_WhenValidCostCloseToPrice_ShouldReturn1()
     {
       // Arrange
       string costInput = "100";
       string priceInput = "101";
-      decimal expected = .99M;
+      decimal expected = 1M;
 
       // Act
       decimal actual = Product.CalculateMargin(costInput, priceInput);
@@ -67,7 +97,7 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldSucceedWhenValidInputSmallPrice()
+    public void CalculateMargin_WhenValidSmallValues50PercentOfPrice_ShouldReturn50()
     {
       // Arrange
       string costInput = ".01";
@@ -82,12 +112,12 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldSucceedWhenValidInputLargePrice()
+    public void CalculateMargin_WhenValidCostContainsDecimal50PercentOfPrice_ShouldReturn50()
     {
       // Arrange
-      string costInput = ".01";
+      string costInput = "49.55";
       string priceInput = "100";
-      decimal expected = 99.99M;
+      decimal expected = 50M;
 
       // Act
       decimal actual = Product.CalculateMargin(costInput, priceInput);
@@ -96,9 +126,23 @@ namespace APM.SL.Test
       Assert.Equal(expected, actual);
     }
 
+  [Fact]
+    public void CalculateMargin_WhenValidCostIsZero_ShouldReturn100()
+    {
+      // Arrange
+      string costInput = "0";
+      string priceInput = "100";
+      decimal expected = 100;
+
+      // Act
+      decimal actual = Product.CalculateMargin(costInput, priceInput);
+
+      // Assert
+      Assert.Equal(expected, actual);
+    }
 
     [Fact]
-    public void ShouldErrorWhenPriceIs0()
+    public void CalculateMargin_WhenInvalidPriceIs0_ShouldGenerateError()
     {
       // Arrange
       string costInput = "50";
@@ -112,7 +156,7 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldErrorWhenPriceIsEmpty()
+    public void CalculateMargin_WhenInvalidPriceIsEmpty_ShouldGenerateError()
     {
       // Arrange
       string costInput = "50";
@@ -126,7 +170,7 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldErrorWhenCostIsEmpty()
+    public void CalculateMargin_WhenInvalidCostIsEmpty_ShouldGenerateError()
     {
       // Arrange
       string costInput = "";
@@ -140,7 +184,7 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldErrorWhenPriceIsNotANumber()
+    public void CalculateMargin_WhenInvalidPriceIsNotANumber_ShouldGenerateError()
     {
       // Arrange
       string costInput = "50";
@@ -154,7 +198,7 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void ShouldErrorWhenCostIsNotANumber()
+    public void CalculateMargin_WhenInvalidCostIsNotANumber_ShouldGenerateError()
     {
       // Arrange
       string costInput = "Fifty";
@@ -167,5 +211,18 @@ namespace APM.SL.Test
       Assert.Equal("The cost must be a number 0 or greater", ex.Message);
     }
 
+    [Fact]
+    public void CalculateMargin_WhenInvalidCostContainsDollar_ShouldError()
+    {
+      // Arrange
+      string costInput = "$49.95";
+      string priceInput = "100";
+
+      // Act
+      var ex = Assert.Throws<ArgumentException>(() => Product.CalculateMargin(costInput, priceInput));
+
+      // Assert
+      Assert.Equal("The cost must be a number 0 or greater", ex.Message);
+    }
   }
 }
