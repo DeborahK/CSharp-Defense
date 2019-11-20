@@ -1,0 +1,117 @@
+﻿@model APM.MVC.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Price Update";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="PriceUpdate" id="priceUpdateForm">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <label asp-for="Cost" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="Cost" class="form-control" />
+                    <span asp-validation-for="Cost" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Price" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Category" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="Category" class="form-control" />
+                    <span asp-validation-for="Category" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="Reason" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="Reason" class="form-control" />
+                    <span asp-validation-for="Reason" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label asp-for="EffectiveDate" class="col-md-3 control-label"></label>
+                <div class="col-md-9">
+                    <input asp-for="EffectiveDate" class="form-control" />
+                    <span asp-validation-for="EffectiveDate" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <button class="btn btn-primary"
+                        onclick="calculateMargin()">
+                    CalculateMargin
+                </button>
+                <button class="btn btn-outline-secondary mr-3"
+                        style="width:80px;"
+                        title="Cancel your price update"
+                        onclick="location.href='@Url.Action("Index", "Product")'">
+                    Cancel
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div class="offset-md-1 col-md-4">
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th style="text-align: center;">Minimim Required Profit Margin</th>
+                            <th style="text-align: center;">Calculated Profit Margin</th>
+                        </tr>
+                        <tr>
+                            <td class="text-primary h4"
+                                style="text-align: center;">
+                                40%
+                            </td>
+                            <td class="h4"
+                                style="text-align: center;">
+                                @Html.DisplayFor(model => model.ProfitMargin)%
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <input type="submit" value="Save" class="btn btn-primary" />
+            <button class="btn btn-outline-secondary mr-3"
+                    style="width:80px;"
+                    title="Cancel your price update"
+                    onclick="location.href='@Url.Action("Index", "Product")'">
+                Cancel
+            </button>
+        </div>
+
+    </div>
+
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script type="text/javascript" language="javascript">
+            function calculateMargin() {
+                'use strict';
+                var form = $("#priceUpdateForm")[0];
+                //var command = $("#command")[0];
+                //command.value = "calculate"
+                form.action = '@Url.Action("PriceUpdate", "Product")/calculate';
+                form.submit();
+            }
+        </script>
+    }
