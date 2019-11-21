@@ -31,7 +31,7 @@ namespace APM.MVC.Controllers
     {
       // Code to save the product
 
-      return View(product);
+      return View(nameof(Index));
     }
 
     [HttpPost]
@@ -44,11 +44,9 @@ namespace APM.MVC.Controllers
       // Calculate and check the profit margin
       var calculatedMargin = ((price - cost) / price) * 100;
 
-      var isAcceptable = calculatedMargin >= 40;
-      ViewBag.IsAcceptable = isAcceptable;
-
       // Display the results
-      product.ProfitMargin = calculatedMargin;
+      ViewBag.CalculateMargin = calculatedMargin;
+      ViewBag.IsAcceptable = calculatedMargin >= 40; 
 
       return View(nameof(PriceUpdate), product);
     }

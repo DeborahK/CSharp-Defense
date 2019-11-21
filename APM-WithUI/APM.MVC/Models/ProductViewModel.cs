@@ -21,8 +21,5 @@ namespace APM.MVC.Models
     public string Price { get; set; }
     public string Reason { get; set; }
 
-    public decimal ProfitMargin { get; set; }
-
-
   }
 }

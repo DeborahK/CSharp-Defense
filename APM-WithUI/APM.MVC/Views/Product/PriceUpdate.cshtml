@@ -49,20 +49,6 @@
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <button class="btn btn-primary"
-                                asp-controller="Product"
-                                asp-action="Calculate">
-                            CalculateMargin
-                        </button>
-                        <button class="btn btn-outline-secondary mr-3"
-                                style="width:80px;"
-                                title="Cancel your price update"
-                                asp-controller="Product"
-                                asp-action="Index">
-                            Cancel
-                        </button>
-                    </div>
                 </div>
 
                 <div class="offset-md-1 col-md-5">
@@ -83,14 +69,14 @@
                                         {
                                             <td class="h4 text-success"
                                                 style="text-align: center;">
-                                                @Html.DisplayFor(model => model.ProfitMargin)%
+                                                @ViewBag.CalculateMargin%
                                             </td>
                                         }
                                         else
                                         {
                                             <td class="h4 text-danger"
                                                 style="text-align: center;">
-                                                @Html.DisplayFor(model => model.ProfitMargin)%
+                                                @ViewBag.CalculateMargin%
                                             </td>
                                         }
                                     </tr>
@@ -100,7 +86,29 @@
                             </table>
                         </div>
                     </div>
+                </div>
+            </div>
 
+            <!-- Button Row -->
+            <div class="row">
+                <div class="offset-md-2 col-md-4">
+                    <div class="form-group">
+                        <button class="btn btn-primary"
+                                asp-controller="Product"
+                                asp-action="Calculate">
+                            CalculateMargin
+                        </button>
+                        <button class="btn btn-outline-secondary mr-3"
+                                style="width:80px;"
+                                title="Cancel your price update"
+                                asp-controller="Product"
+                                asp-action="Index">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-4">
                     <div class="form-group">
                         <button class="btn btn-primary"
                                 asp-controller="Product"
