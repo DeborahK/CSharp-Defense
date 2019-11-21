@@ -9,23 +9,27 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APM.MVC.Controllers
 {
+    [Route("[controller]/[action]")]
   public class ProductController : Controller
   {
 
     // GET action
     // When navigating to the page.
+    [HttpGet]
     public IActionResult PriceUpdate()
     {
       // Create model
       var product = new ProductViewModel();
-      product.Cost = "100";
-      product.Price = "200";
+      //product.Cost = "100";
+      //product.Price = "200";
       product.EffectiveDate = DateTime.Now;
-
+      ViewBag.IsAcceptable = false;
       return View(product);
     }
 
-    [HttpPost("{command?}")]
+        [Route("/[controller]/[action]")]
+        [Route("/[controller]/[action]/{command?}")]
+        [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult PriceUpdate(ProductViewModel product, string command="")
     {
@@ -38,9 +42,13 @@ namespace APM.MVC.Controllers
         var calculatedMargin = ((price - cost) / price) * 100;
 
         var isAcceptable = calculatedMargin >= 40;
-
+        ViewBag.IsAcceptable = isAcceptable;
         // Display the results
         product.ProfitMargin = calculatedMargin;
+      }
+      else if (command == "updatePrice")
+      {
+          //update the product
       }
 
       return View(product);

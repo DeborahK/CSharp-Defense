@@ -76,10 +76,20 @@
                                 style="text-align: center;">
                                 40%
                             </td>
-                            <td class="h4"
-                                style="text-align: center;">
-                                @Html.DisplayFor(model => model.ProfitMargin)%
-                            </td>
+                            @if (ViewBag.IsAcceptable != null && ViewBag.IsAcceptable)
+                            {
+                                <td class="h4 text-success"
+                                    style="text-align: center;" >
+                                    @Html.DisplayFor(model => model.ProfitMargin)%
+                                </td>
+                            }
+                            else
+                            {
+                                <td class="h4 text-danger"
+                                    style="text-align: center;" >
+                                    @Html.DisplayFor(model => model.ProfitMargin)%
+                                </td>
+                            }
                         </tr>
                     </thead>
                     <tbody>
@@ -89,7 +99,8 @@
         </div>
 
         <div class="form-group">
-            <input type="submit" value="Save" class="btn btn-primary" />
+            <input type="submit" value="Save" class="btn btn-primary"
+                   onclick="updatePrice()"/>
             <button class="btn btn-outline-secondary mr-3"
                     style="width:80px;"
                     title="Cancel your price update"
@@ -110,7 +121,13 @@
                 var form = $("#priceUpdateForm")[0];
                 //var command = $("#command")[0];
                 //command.value = "calculate"
-                form.action = '@Url.Action("PriceUpdate", "Product")/calculate';
+                form.action = '@Url.Action("PriceUpdate", "Product", new {command="calculate"})';
+                form.submit();
+            }
+            function updatePrice() {
+                'use strict';
+                var form = $("#priceUpdateForm")[0];
+                form.action = '@Url.Action("PriceUpdate", "Product", new {command="updatePrice"})';
                 form.submit();
             }
         </script>
