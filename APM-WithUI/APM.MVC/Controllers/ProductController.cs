@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using APM.MVC.Models;
-using Microsoft.AspNetCore.Http;
+﻿using APM.MVC.Models;
+using APM.SL;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace APM.MVC.Controllers
 {
@@ -17,17 +13,17 @@ namespace APM.MVC.Controllers
     public IActionResult PriceUpdate()
     {
       // Create model
-      var product = new ProductViewModel();
-      product.EffectiveDate = DateTime.Now;
+      var productVM = new ProductViewModel();
+      productVM.EffectiveDate = DateTime.Now;
 
       ViewBag.IsAcceptable = false;
 
-      return View(product);
+      return View(productVM);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult PriceUpdate(ProductViewModel product)
+    public IActionResult PriceUpdate(ProductViewModel productVM)
     {
       // Code to save the product
 
@@ -36,19 +32,20 @@ namespace APM.MVC.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Calculate(ProductViewModel product)
+    public IActionResult Calculate(ProductViewModel productVM)
     {
-      decimal cost = decimal.Parse(product.Cost);
-      decimal price = decimal.Parse(product.Price);
+      var price = productVM.Price;
+      var cost = productVM.Cost;
 
       // Calculate and check the profit margin
-      var calculatedMargin = ((price - cost) / price) * 100;
+      var product = new Product();
+      var calculatedMargin = product.CalculateMargin(cost, price);
 
       // Display the results
       ViewBag.CalculateMargin = calculatedMargin;
       ViewBag.IsAcceptable = calculatedMargin >= 40; 
 
-      return View(nameof(PriceUpdate), product);
+      return View(nameof(PriceUpdate), productVM);
     }
 
     // GET: Product

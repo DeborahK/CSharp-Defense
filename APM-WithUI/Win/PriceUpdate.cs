@@ -20,10 +20,10 @@ namespace Win
 
     private void Calculate_Click(object sender, EventArgs e)
     {
-      // Calculate and check the profit margin
       var price = priceTextBox.Text;
       var cost = costTextBox.Text;
 
+      // Calculate and check the profit margin
       var product = new Product();
       var calculatedMargin = product.CalculateMargin(cost, price);
 

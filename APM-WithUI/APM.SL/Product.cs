@@ -21,7 +21,7 @@ namespace APM.SL
 
       var margin = ((price - cost) / price) * 100M;
 
-      return Math.Round(margin);
+      return margin;
     }
   }
 
