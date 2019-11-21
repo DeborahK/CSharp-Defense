@@ -9,51 +9,33 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace APM.MVC.Controllers
 {
-    [Route("[controller]/[action]")]
   public class ProductController : Controller
   {
 
     // GET action
     // When navigating to the page.
-    [HttpGet]
     public IActionResult PriceUpdate()
     {
       // Create model
       var product = new ProductViewModel();
-      //product.Cost = "100";
-      //product.Price = "200";
       product.EffectiveDate = DateTime.Now;
+
       ViewBag.IsAcceptable = false;
+
       return View(product);
     }
 
-        [Route("/[controller]/[action]")]
-        [Route("/[controller]/[action]/{command?}")]
-        [HttpPost]
+    [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult PriceUpdate(ProductViewModel product, string command="")
+    public IActionResult PriceUpdate(ProductViewModel product)
     {
-      if (command == "calculate")
-      {
-        decimal cost = decimal.Parse(product.Cost);
-        decimal price = decimal.Parse(product.Price);
-
-        // Calculate and check the profit margin
-        var calculatedMargin = ((price - cost) / price) * 100;
-
-        var isAcceptable = calculatedMargin >= 40;
-        ViewBag.IsAcceptable = isAcceptable;
-        // Display the results
-        product.ProfitMargin = calculatedMargin;
-      }
-      else if (command == "updatePrice")
-      {
-          //update the product
-      }
+      // Code to save the product
 
       return View(product);
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
     public IActionResult Calculate(ProductViewModel product)
     {
       decimal cost = decimal.Parse(product.Cost);
@@ -63,6 +45,7 @@ namespace APM.MVC.Controllers
       var calculatedMargin = ((price - cost) / price) * 100;
 
       var isAcceptable = calculatedMargin >= 40;
+      ViewBag.IsAcceptable = isAcceptable;
 
       // Display the results
       product.ProfitMargin = calculatedMargin;
@@ -70,96 +53,11 @@ namespace APM.MVC.Controllers
       return View(nameof(PriceUpdate), product);
     }
 
-    //// GET: Product
-    //public ActionResult Index(ProductViewModel model, string command)
-    //{
-    //  if (command == "calculate")
-    //  {
-    //    model.ProfitMargin = 25;
-    //  }
-    //  return View(model);
-    //}
-
-
     // GET: Product
     public ActionResult Index()
     {
       return View();
     }
 
-    // GET: Product/Details/5
-    public ActionResult Details(int id)
-    {
-      return View();
-    }
-
-    // GET: Product/Create
-    public ActionResult Create()
-    {
-      return View();
-    }
-
-    // POST: Product/Create
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
-    {
-      try
-      {
-        // TODO: Add insert logic here
-
-        return RedirectToAction(nameof(Index));
-      }
-      catch
-      {
-        return View();
-      }
-    }
-
-    // GET: Product/Edit/5
-    public ActionResult Edit(int id)
-    {
-      return View();
-    }
-
-    // POST: Product/Edit/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
-    {
-      try
-      {
-        // TODO: Add update logic here
-
-        return RedirectToAction(nameof(Index));
-      }
-      catch
-      {
-        return View();
-      }
-    }
-
-    // GET: Product/Delete/5
-    public ActionResult Delete(int id)
-    {
-      return View();
-    }
-
-    // POST: Product/Delete/5
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
-    {
-      try
-      {
-        // TODO: Add delete logic here
-
-        return RedirectToAction(nameof(Index));
-      }
-      catch
-      {
-        return View();
-      }
-    }
   }
 }
