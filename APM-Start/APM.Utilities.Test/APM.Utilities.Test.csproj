@@ -1,9 +1,7 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
-    <RootNamespace>APM.SL.Test</RootNamespace>
-    <Nullable>enable</Nullable>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -16,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\APM.SL\APM.SL.csproj" />
+    <ProjectReference Include="..\APM.Utilities\APM.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

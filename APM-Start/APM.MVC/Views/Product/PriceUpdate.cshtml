@@ -1,0 +1,136 @@
+﻿@model APM.MVC.Models.ProductViewModel
+
+@{
+    ViewData["Title"] = "Price Update";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-12">
+        <form id="priceUpdateForm" method="post">
+            <div class="row">
+                <div class="col-md-6">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group row">
+                        <label asp-for="Cost" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Cost" class="form-control" />
+                            <span asp-validation-for="Cost" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Price" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Price" class="form-control" />
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Category" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Category" class="form-control" />
+                            <span asp-validation-for="Category" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="Reason" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="Reason" class="form-control" />
+                            <span asp-validation-for="Reason" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label asp-for="EffectiveDate" class="col-md-3 control-label"></label>
+                        <div class="col-md-9">
+                            <input asp-for="EffectiveDate" class="form-control" />
+                            <span asp-validation-for="EffectiveDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="offset-md-1 col-md-5">
+                    <div class="row">
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Minimim Required Profit Margin</th>
+                                        <th style="text-align: center;">Calculated Profit Margin</th>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-primary h4"
+                                            style="text-align: center;">
+                                            40%
+                                        </td>
+                                        @if (ViewBag.IsAcceptable != null && ViewBag.IsAcceptable)
+                                        {
+                                            <td class="h4 text-success"
+                                                style="text-align: center;">
+                                                @ViewBag.CalculateMargin%
+                                            </td>
+                                        }
+                                        else
+                                        {
+                                            <td class="h4 text-danger"
+                                                style="text-align: center;">
+                                                @ViewBag.CalculateMargin%
+                                            </td>
+                                        }
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button Row -->
+            <div class="row">
+                <div class="offset-md-2 col-md-4">
+                    <div class="form-group">
+                        <button class="btn btn-primary"
+                                asp-controller="Product"
+                                asp-action="Calculate">
+                            CalculateMargin
+                        </button>
+                        <button class="btn btn-outline-secondary mr-3"
+                                style="width:80px;"
+                                title="Cancel your price update"
+                                asp-controller="Product"
+                                asp-action="Index">
+                            Cancel
+                        </button>
+                    </div>
+                </div>
+
+                <div class="offset-md-2 col-md-4">
+                    <div class="form-group">
+                        <button class="btn btn-primary"
+                                asp-controller="Product"
+                                asp-action="PriceUpdate"
+                                type="submit">
+                            Confirm Price Change
+                        </button>
+                        <button class="btn btn-outline-secondary mr-3"
+                                style="width:80px;"
+                                title="Cancel your price update"
+                                asp-controller="Product"
+                                asp-action="Index">
+                            Cancel
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
