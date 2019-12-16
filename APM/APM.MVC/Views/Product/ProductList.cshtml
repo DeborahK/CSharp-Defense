@@ -1,0 +1,53 @@
+﻿@model APM.MVC.Models.ProductListViewModel
+
+@{
+    ViewData["Title"] = "Product List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Current Cost
+        </th>
+        <th>
+            Current Price
+        </th>
+        <th>
+            Current Margin
+        </th>
+        <th>
+            Last Effective Date
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var product in Model.products)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => product.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.Cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.Price)
+            </td>
+            <td>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => product.EffectiveDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = product.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = product.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = product.Id })
+            </td>
+        </tr>
+    }
+</table>
+

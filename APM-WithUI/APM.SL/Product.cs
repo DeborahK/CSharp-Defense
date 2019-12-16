@@ -16,8 +16,18 @@ namespace APM.SL
     /// <returns>Resulting profit margin</returns>
     public decimal CalculateMargin(string costInput, string priceInput)
     {
-      decimal cost = decimal.Parse(costInput);
-      decimal price = decimal.Parse(priceInput);
+      decimal cost = 0;
+
+      // Original
+      //decimal cost = decimal.Parse(costInput);
+      //decimal price = decimal.Parse(priceInput);
+
+      // Try 1:
+      decimal cost = 0;
+      decimal.TryParse(costInput, out cost);
+
+      decimal price = 0;
+      decimal.TryParse(priceInput, out price);
 
       var margin = ((price - cost) / price) * 100M;
 
