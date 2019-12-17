@@ -37,23 +37,13 @@ namespace APM.MVC.Controllers
       var price = productVM.Price;
       var cost = productVM.Cost;
 
-      decimal calculatedMargin = 0;
-      try
-      {
-
-        // Calculate and check the profit margin
-        var product = new Product();
-        calculatedMargin = product.CalculateMargin(cost, price);
-      }
-      catch (Exception)
-      {
-        // Display validation information to the user
-        calculatedMargin = 0;
-      }
+      // Calculate and check the profit margin
+      var product = new Product();
+      var calculatedMargin = product.CalculateMargin(cost, price);
 
       // Display the results
       ViewBag.CalculateMargin = calculatedMargin;
-      ViewBag.IsAcceptable = calculatedMargin >= 40; 
+      ViewBag.IsAcceptable = calculatedMargin >= 40;
 
       return View(nameof(PriceUpdate), productVM);
     }
