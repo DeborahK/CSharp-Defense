@@ -9,9 +9,10 @@ namespace APM.SL
     public int DiscountId { get; private set; }
     public string? DiscountName { get; set; }
 
-    public decimal PercentOff { get; set; }
+    public decimal? PercentOff { get; set; }
 
-    public decimal? PercentOffAsNullable { get; set; }
+    public decimal PercentOffOriginal { get; set; }
+
 
     // ... Discount details
 

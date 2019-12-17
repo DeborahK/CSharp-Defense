@@ -159,7 +159,7 @@ namespace APM.SL.Test
 
       // Act & Assert
       var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price));
-      Assert.Equal("The price must be a number greater than 0", ex.Message);
+      Assert.Equal("The price must be a number greater than 0 (Parameter 'price')", ex.Message);
     }
 
     [Fact]
@@ -189,37 +189,6 @@ namespace APM.SL.Test
     }
 
     [Fact]
-    public void CalculateMargin_WhenInvalidPriceIsNotANumber_ShouldGenerateError()
-    {
-      // Arrange
-      string cost = "50";
-      string price = "Hundred";
-      var product = new Product();
-
-      // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price));
-      Assert.Equal("The price must be a number greater than 0", ex.Message);
-    }
-
-    [Fact]
-    public void CalculateMargin_WhenInvalidCostIsNotANumber_ShouldGenerateError()
-    {
-      // Arrange
-      string cost = "Fifty";
-      string price = "100";
-      var product = new Product();
-
-      // Act
-#pragma warning disable IDE0039 // Use local function
-      Action act = () => product.CalculateMargin(cost, price);
-#pragma warning restore IDE0039 // Use local function
-
-      // Assert
-      var ex = Assert.Throws<ArgumentException>(act);
-      Assert.Equal("The cost must be a number 0 or greater", ex.Message);
-    }
-
-    [Fact]
     public void CalculateMargin_WhenInvalidPriceIsNull_ShouldGenerateError()
     {
       // Arrange
@@ -240,14 +209,38 @@ namespace APM.SL.Test
       string price = "100";
       var product = new Product();
 
+      // Act & Assert
+      var ex = Assert.Throws<ValidationException>(() => product.CalculateMargin(cost, price));
+      Assert.Equal("Please enter the cost (Parameter 'cost')", ex.Message);
+    }
+
+    [Fact]
+    public void CalculateMargin_WhenInvalidPriceIsNotANumber_ShouldGenerateError()
+    {
+      // Arrange
+      string cost = "50";
+      string price = "Hundred";
+      var product = new Product();
+
+      // Act & Assert
+      var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price));
+      Assert.Equal("The price must be a number greater than 0 (Parameter 'price')", ex.Message);
+    }
+
+    [Fact]
+    public void CalculateMargin_WhenInvalidCostIsNotANumber_ShouldGenerateError()
+    {
+      // Arrange
+      string cost = "Fifty";
+      string price = "100";
+      var product = new Product();
+
       // Act
-#pragma warning disable IDE0039 // Use local function
-      Action act = () => product.CalculateMargin(cost!, price);
-#pragma warning restore IDE0039 // Use local function
+      Action act = () => product.CalculateMargin(cost, price);
 
       // Assert
-      var ex = Assert.Throws<ValidationException>(act);
-      Assert.Equal("Please enter the cost (Parameter 'cost')", ex.Message);
+      var ex = Assert.Throws<ArgumentException>(act);
+      Assert.Equal("The cost must be a number 0 or greater (Parameter 'cost')", ex.Message);
     }
 
     [Fact]
@@ -260,7 +253,7 @@ namespace APM.SL.Test
 
       // Act & Assert
       var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price));
-      Assert.Equal("The cost must be a number 0 or greater", ex.Message);
+      Assert.Equal("The cost must be a number 0 or greater (Parameter 'cost')", ex.Message);
     }
 
     [Fact]
@@ -349,89 +342,19 @@ namespace APM.SL.Test
       Assert.Equal("Please enter the price", ex.Message);
     }
 
-    //
-    // CalculateTotalDiscountWithNulllable
-    //
     [Fact]
-    public void CalculateTotalDiscountWithNulllable_WhenDiscount50_ShouldReturnHalf()
+    public void CalculateTotalDiscount_WhenPercentOffIsNull_ShouldReturnError()
     {
       // Arrange
       var price = 200;
       var discount = new Discount()
       {
-        PercentOffAsNullable = 50
-      };
-      var product = new Product();
-      var expected = 100;
-
-      // Act
-      var actual = product.CalculateTotalDiscountWithNullable(price, discount);
-
-      // Assert
-      Assert.Equal(expected, actual);
-    }
-
-    [Fact]
-    public void CalculateTotalDiscountWithNulllable_WhenDiscount25_ShouldReturnQuarter()
-    {
-      // Arrange
-      var price = 200;
-      var discount = new Discount()
-      {
-        PercentOffAsNullable = 25
-      };
-      var product = new Product();
-      var expected = 50;
-
-      // Act
-      var actual = product.CalculateTotalDiscountWithNullable(price, discount);
-
-      // Assert
-      Assert.Equal(expected, actual);
-    }
-
-    [Fact]
-    public void CalculateTotalDiscountWithNulllable_WhenDiscountNull_ShouldReturnError()
-    {
-      // Arrange
-      var price = 200;
-      Discount? discount = null;
-      var product = new Product();
-
-      // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscountWithNullable(price, discount!));
-      Assert.Equal("Please specify a discount", ex.Message);
-    }
-
-    [Fact]
-    public void CalculateTotalDiscountWithNulllable_WhenPriceIs0_ShouldReturnError()
-    {
-      // Arrange
-      var price = 0;
-      var discount = new Discount()
-      {
-        PercentOffAsNullable = 50
+        PercentOff = null
       };
       var product = new Product();
 
       // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscountWithNullable(price, discount));
-      Assert.Equal("Please enter the price", ex.Message);
-    }
-
-    [Fact]
-    public void CalculateTotalDiscountWithNulllable_WhenPercentOffIsNull_ShouldReturnError()
-    {
-      // Arrange
-      var price = 200;
-      var discount = new Discount()
-      {
-        PercentOffAsNullable = null
-      };
-      var product = new Product();
-
-      // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscountWithNullable(price, discount));
+      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscount(price, discount));
       Assert.Equal("Please specify a discount", ex.Message);
     }
 

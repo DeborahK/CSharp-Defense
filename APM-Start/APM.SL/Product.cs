@@ -21,7 +21,7 @@ namespace APM.SL
     public Discount ProductDiscount { get; set; }
 
     public string ProductName { get; set; } = "";
-	
+
     public string Reason { get; set; } = "";
 
 

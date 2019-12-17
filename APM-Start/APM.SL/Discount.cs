@@ -11,8 +11,6 @@ namespace APM.SL
 
     public decimal PercentOff { get; set; }
 
-    public decimal? PercentOffAsNullable { get; set; }
-
     // ... Discount details
 
     public Discount FindDiscount(List<Discount> discounts, string discountName)

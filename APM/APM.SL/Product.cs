@@ -23,6 +23,7 @@ namespace APM.SL
     // public Discount ProductDiscount { get; set; } = new Discount();
 
     public string ProductName { get; set; } = "";
+
     public string Reason { get; set; } = "";
 
     /// <summary>
@@ -33,11 +34,11 @@ namespace APM.SL
     /// <returns>Resulting profit margin</returns>
     public decimal CalculateMargin(string? costInput, string priceInput)
     {
-      Guard.ThrowValidationIfNullOrEmpty(costInput!, "Please enter the cost", "cost");
-      Guard.ThrowValidationIfNullOrEmpty(priceInput, "Please enter the price", "price");
+      Guard.ThrowIfNullOrEmpty(costInput!, "Please enter the cost", "cost");
+      Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
 
-      var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater");
-      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0");
+      var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater", "cost");
+      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0", "price");
 
       var margin = ((price - cost) / price) * 100M;
 
@@ -46,11 +47,11 @@ namespace APM.SL
 
     public decimal CalculateMarginWithGuardClassOriginal(string? costInput, string priceInput)
     {
-      Guard.ThrowIfNullOrEmpty(costInput!, "Please enter the cost");
-      Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price");
+      Guard.ThrowIfNullOrEmpty(costInput!, "Please enter the cost", "cost");
+      Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
 
-      var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater");
-      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0");
+      var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater", "cost");
+      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0", "price");
 
       var margin = ((price - cost) / price) * 100M;
 
@@ -152,21 +153,22 @@ namespace APM.SL
     {
       if (price <= 0) throw new ArgumentException("Please enter the price");
 
-      if (discount is null) throw new ArgumentException("Please specify a discount");
+      // if (discount is null) throw new ArgumentException("Please specify a discount");
+      // if (discount.PercentOff is null) throw new ArgumentException("Please specify a discount");
+      if (discount?.PercentOff is null) throw new ArgumentException("Please specify a discount");
 
-      var discountAmount = price * (discount.PercentOff / 100);
+      var discountAmount = price * (discount.PercentOff.Value / 100);
 
       return discountAmount;
     }
 
-    public decimal CalculateTotalDiscountWithNullable(decimal price, Discount discount)
+    public decimal CalculateTotalOriginal(decimal price, Discount discount)
     {
       if (price <= 0) throw new ArgumentException("Please enter the price");
 
-      // if (discount is null) throw new ArgumentException("Please specify a discount");
-      if (discount?.PercentOffAsNullable is null) throw new ArgumentException("Please specify a discount");
+      if (discount is null) throw new ArgumentException("Please specify a discount");
 
-      var discountAmount = price * (discount.PercentOffAsNullable.Value / 100);
+      var discountAmount = price * (discount.PercentOffOriginal / 100);
 
       return discountAmount;
     }

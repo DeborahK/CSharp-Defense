@@ -56,7 +56,7 @@ namespace APM.MVC.Controllers
 
       // Display the results
       ViewBag.CalculateMargin = calculatedMargin;
-      ViewBag.IsAcceptable = calculatedMargin >= 40; 
+      ViewBag.IsAcceptable = calculatedMargin >= 40;
 
       return View(nameof(PriceUpdate), productVM);
     }
