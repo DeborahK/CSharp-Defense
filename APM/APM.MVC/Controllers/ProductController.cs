@@ -45,10 +45,13 @@ namespace APM.MVC.Controllers
         var product = new Product();
         calculatedMargin = product.CalculateMargin(cost, price);
       }
-      catch (Exception)
+      catch (ValidationException ex) when (ex.ParamName == "cost")
       {
-        // Display validation information to the user
-        calculatedMargin = 0;
+        ModelState.AddModelError("Cost", ex.Message.RemoveParenthetical());
+      }
+      catch (ValidationException ex) when (ex.ParamName == "price")
+      {
+        ModelState.AddModelError("Price", ex.Message.RemoveParenthetical());
       }
 
       // Display the results

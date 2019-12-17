@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\APM.SL\APM.SL.csproj" />
+    <ProjectReference Include="..\APM.Utilities\APM.Utilities.csproj" />
   </ItemGroup>
 
 </Project>

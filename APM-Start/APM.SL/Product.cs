@@ -16,13 +16,12 @@ namespace APM.SL
     // Reference Types
     public string Category { get; set; } = "";
 
-    public List<Discount>? Discounts { get; set; }
-    // public List<Discount> Discounts { get; set; } = new List<Discount>();
+    public List<Discount> Discounts { get; set; }
 
-    public Discount? ProductDiscount { get; set; }
-    // public Discount ProductDiscount { get; set; } = new Discount();
+    public Discount ProductDiscount { get; set; }
 
     public string ProductName { get; set; } = "";
+	
     public string Reason { get; set; } = "";
 
 

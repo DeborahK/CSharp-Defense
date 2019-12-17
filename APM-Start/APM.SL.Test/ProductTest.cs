@@ -224,7 +224,7 @@ namespace APM.SL.Test
     {
       // Arrange
       string cost = "50";
-      string? price = null;
+      string price = null;
       var product = new Product();
 
       // Act & Assert
@@ -236,7 +236,7 @@ namespace APM.SL.Test
     public void CalculateMargin_WhenInvalidCostIsNull_ShouldGenerateError()
     {
       // Arrange
-      string? cost = null;
+      string cost = null;
       string price = "100";
       var product = new Product();
 
@@ -325,7 +325,7 @@ namespace APM.SL.Test
     {
       // Arrange
       var price = 200;
-      Discount? discount = null;
+      Discount discount = null;
       var product = new Product();
 
       // Act & Assert

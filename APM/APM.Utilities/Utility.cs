@@ -1,11 +1,12 @@
 ﻿using System;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace APM.SL
 {
-  public class Utility
+  public static class Utility
   {
-    public bool SendEmail(string recipient, string subject,
+    public static bool SendEmail(string recipient, string subject,
                           string body, DateTime sendDate,
                           bool saveCopy = false, bool highPriority = false,
                           bool includeSignature = true)
@@ -32,6 +33,11 @@ namespace APM.SL
           w.WriteLine($" - {logText}");
         w.WriteLine("-------------------------------");
       }
+    }
+
+    public static string RemoveParenthetical(this String text)
+    {
+      return Regex.Replace(text, @"\(.*\)", "");
     }
   }
 }

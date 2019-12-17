@@ -7,7 +7,7 @@ namespace APM.SL
   public class Discount
   {
     public int DiscountId { get; private set; }
-    public string? DiscountName { get; set; }
+    public string DiscountName { get; set; }
 
     public decimal PercentOff { get; set; }
 
@@ -15,7 +15,7 @@ namespace APM.SL
 
     // ... Discount details
 
-    public Discount? FindDiscount(List<Discount>? discounts, string discountName)
+    public Discount FindDiscount(List<Discount> discounts, string discountName)
     {
       if (discounts is null) return null;
 
@@ -35,7 +35,7 @@ namespace APM.SL
     //  return foundDiscount;
     //}
 
-    public (Discount? Discount, string? Message) FindDiscountWithTuple(List<Discount>? discounts, string discountName)
+    public (Discount Discount, string Message) FindDiscountWithTuple(List<Discount> discounts, string discountName)
     {
       if (discounts is null)
         return (Discount: null, Message: "No discounts found");

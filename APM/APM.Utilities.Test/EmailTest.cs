@@ -10,10 +10,9 @@ namespace APM.SL.Test
     {
       // Arrange
       var expected = true;
-      var email = new Utility();
 
       // Act
-      bool actual = email.SendEmail("Jack Harkness", "Today's Meeting",
+      bool actual = Utility.SendEmail("Jack Harkness", "Today's Meeting",
                                     "Please confirm our 1PM meeting",
                                     DateTime.Now);
 
@@ -26,10 +25,9 @@ namespace APM.SL.Test
     {
       // Arrange
       var expected = true;
-      var email = new Utility();
 
       // Act
-      bool actual = email.SendEmail("Jack Harkness", "Today's Meeting",
+      bool actual = Utility.SendEmail("Jack Harkness", "Today's Meeting",
                                     "Please confirm our 1PM meeting",
                                     DateTime.Now,
                                     saveCopy: true, highPriority:true, 

@@ -13,9 +13,9 @@ namespace APM.SL.Test
     public void FindDiscount_WhenListIsNull_ShouldReturnNull()
     {
       // Arrange
-      List<Discount>? discounts = null;
+      List<Discount> discounts = null;
       var discountName = "40% off";
-      Discount? expected = null;
+      Discount expected = null;
       var discount = new Discount();
 
       // Act
@@ -56,9 +56,9 @@ namespace APM.SL.Test
     public void FindDiscountWithTuple_WhenListIsNull_ShouldReturnNull()
     {
       // Arrange
-      List<Discount>? discounts = null;
+      List<Discount> discounts = null;
       var discountName = "40% off";
-      (Discount? Discount, string? Message) expected = (Discount: null, Message: "No discounts found");
+      (Discount Discount, string Message) expected = (Discount: null, Message: "No discounts found");
       var discount = new Discount();
 
       // Act
