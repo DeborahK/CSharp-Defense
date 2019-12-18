@@ -25,7 +25,7 @@ namespace APM.SL
 
     public Discount FindDiscountWithException(List<Discount>? discounts, string discountName)
     {
-      if (discounts is null) throw new ArgumentException("No discounts to process");
+      if (discounts is null) throw new ArgumentException("No discounts found");
 
       var foundDiscount = discounts.Find(d => d.DiscountName == discountName);
 
@@ -43,7 +43,7 @@ namespace APM.SL
                  discounts.Find(d => d.DiscountName == discountName);
 
       if (foundDiscount is null)
-        return (Discount: null, Message: "Not found");
+        return (Discount: null, Message: "Discount not found");
 
       return (Discount: foundDiscount, Message: null);
     }

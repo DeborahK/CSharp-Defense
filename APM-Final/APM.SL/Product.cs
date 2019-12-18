@@ -53,9 +53,9 @@ namespace APM.SL
       var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater", "cost");
       var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0", "price");
 
-      var margin = ((price - cost) / price) * 100M;
+      var margin = Math.Round(((price - cost) / price) * 100M);
 
-      return Math.Round(margin);
+      return margin;
     }
 
     public decimal CalculateMarginWithOverload(string costInput, string priceInput)
@@ -76,9 +76,9 @@ namespace APM.SL
     {
       // if (price == 0) throw new ArgumentException("The price must not be 0");
 
-      var margin = ((price - cost) / price) * 100M;
+      var margin = Math.Round(((price - cost) / price) * 100M);
 
-      return Math.Round(margin);
+      return margin;
     }
 
     public decimal CalculateMarginWithGuardClauses(string costInput, string priceInput)
@@ -92,9 +92,9 @@ namespace APM.SL
       success = decimal.TryParse(priceInput, out decimal price);
       if (!success || price <= 0) throw new ArgumentException("The price must be a number greater than 0", "price");
 
-      var margin = ((price - cost) / price) * 100M;
+      var margin = Math.Round(((price - cost) / price) * 100M);
 
-      return Math.Round(margin);
+      return margin;
     }
 
     public decimal CalculateMarginWithSurroundingConditionals(string costInput, string priceInput)
@@ -108,7 +108,7 @@ namespace APM.SL
 
         if (success && price > 0)
         {
-          margin = ((price - cost) / price) * 100M;
+          margin = Math.Round(((price - cost) / price) * 100M);
         }
       }
 
@@ -120,7 +120,7 @@ namespace APM.SL
       decimal cost = decimal.Parse(costInput);
       decimal price = decimal.Parse(priceInput);
 
-      var margin = ((price - cost) / price) * 100M;
+      var margin = Math.Round(((price - cost) / price) * 100M);
 
       return margin;
     }
@@ -134,13 +134,13 @@ namespace APM.SL
 
       var success = decimal.TryParse(costInput, out decimal cost);
       if (!success || cost < 0)
-        return (Margin: null, Message: "The cost must be >= 0");
+        return (Margin: null, Message: "The cost must be a number 0 or greater");
 
       success = decimal.TryParse(priceInput, out decimal price);
       if (!success || price <= 0)
-        return (Margin: null, Message: "The price must be > 0");
+        return (Margin: null, Message: "The price must be a number greater than 0");
 
-      var margin = ((price - cost) / price) * 100M;
+      var margin = Math.Round(((price - cost) / price) * 100M);
       return (Margin: margin, Message: null);
     }
 

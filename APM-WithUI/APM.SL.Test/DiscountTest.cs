@@ -35,7 +35,7 @@ namespace APM.SL.Test
 
       // Act & Assert
       var ex = Assert.Throws<ArgumentException>(() => discount.FindDiscountWithException(discounts, discountName));
-      Assert.Equal("No discounts to process", ex.Message);
+      Assert.Equal("No discounts found", ex.Message);
     }
 
     [Fact]
