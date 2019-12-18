@@ -48,6 +48,7 @@
       this.button2 = new System.Windows.Forms.Button();
       this.label10 = new System.Windows.Forms.Label();
       this.marginLabel = new System.Windows.Forms.Label();
+      this.ep = new System.Windows.Forms.ErrorProvider();
       this.SuspendLayout();
       // 
       // label1
@@ -257,6 +258,10 @@
       this.marginLabel.TabIndex = 20;
       this.marginLabel.Text = "";
       // 
+      // ep
+      // 
+      this.ep.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+      // 
       // PriceUpdate
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -311,5 +316,6 @@
     private System.Windows.Forms.Button button2;
     private System.Windows.Forms.Label label10;
     private System.Windows.Forms.Label marginLabel;
+    private System.Windows.Forms.ErrorProvider ep;
   }
 }
