@@ -197,7 +197,7 @@ namespace APM.SL.Test
       var product = new Product();
 
       // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price!));
+      var ex = Assert.Throws<ArgumentException>(() => product.CalculateMargin(cost, price));
       Assert.Equal("Please enter the price (Parameter 'price')", ex.Message);
     }
 
@@ -256,6 +256,11 @@ namespace APM.SL.Test
       Assert.Equal("The cost must be a number 0 or greater (Parameter 'cost')", ex.Message);
     }
 
+
+
+    //
+    // CalculateTotalDiscount
+    //
     [Fact]
     public void CalculateTotalDiscount_WhenDiscount50_ShouldReturnHalf()
     {

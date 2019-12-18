@@ -24,6 +24,8 @@ namespace APM.SL
 
     public string Reason { get; set; } = "";
 
+
+
     /// <summary>
     /// Calculate the potential profit margin.
     /// </summary>
