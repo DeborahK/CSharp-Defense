@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Reflection;
 
 namespace APM.SL
 {
@@ -32,22 +30,22 @@ namespace APM.SL
     /// <param name="costInput">Cost in dollars and cents (from user input as string)</param>
     /// <param name="priceInput">Suggested price in dollars and cents (from user input as string)</param>
     /// <returns>Resulting profit margin</returns>
-    public decimal CalculateMargin(string? costInput, string priceInput)
+    public decimal CalculateMargin(string costInput, string priceInput)
     {
-      Guard.ThrowIfNullOrEmpty(costInput!, "Please enter the cost", "cost");
+      Guard.ThrowIfNullOrEmpty(costInput, "Please enter the cost", "cost");
       Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
 
-      var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater", "cost");
+      var cost = Guard.ThrowIfNotPositiveDecimal(costInput, "The cost must be a number 0 or greater", "cost");
       var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0", "price");
 
-      var margin = ((price - cost) / price) * 100M;
+      decimal margin = Math.Round(((price - cost) / price) * 100M);
 
-      return Math.Round(margin);
+      return margin;
     }
 
-    public decimal CalculateMarginWithGuardClassOriginal(string? costInput, string priceInput)
+    public decimal CalculateMarginWithGuardClassOriginal(string costInput, string priceInput)
     {
-      Guard.ThrowIfNullOrEmpty(costInput!, "Please enter the cost", "cost");
+      Guard.ThrowIfNullOrEmpty(costInput, "Please enter the cost", "cost");
       Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
 
       var cost = Guard.ThrowIfNotPositiveDecimal(costInput!, "The cost must be a number 0 or greater", "cost");

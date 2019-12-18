@@ -5,8 +5,4 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="DiscountNotFoundException.cs" />
-  </ItemGroup>
-
 </Project>

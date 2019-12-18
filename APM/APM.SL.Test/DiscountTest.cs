@@ -25,32 +25,31 @@ namespace APM.SL.Test
       Assert.Equal(expected, actual);
     }
 
-    //[Fact]
-    //public void FindDiscountWithException_WhenListIsNull_ShouldThrow()
-    //{
-    //  // Arrange
-    //  List<Discount>? discounts = null;
-    //  var discountName = "40% off";
-    //  var discount = new Discount();
+    [Fact]
+    public void FindDiscountWithException_WhenListIsNull_ShouldThrow()
+    {
+      // Arrange
+      List<Discount>? discounts = null;
+      var discountName = "40% off";
+      var discount = new Discount();
 
-    //  // Act & Assert
-    //  var ex = Assert.Throws<ArgumentException>(() => discount.FindDiscountWithException(discounts, discountName));
-    //  Assert.Equal("No discounts to process", ex.Message);
-    //}
+      // Act & Assert
+      var ex = Assert.Throws<ArgumentException>(() => discount.FindDiscountWithException(discounts, discountName));
+      Assert.Equal("No discounts to process", ex.Message);
+    }
 
-    //[Fact]
-    //public void FindDiscountWithException_WhenNotFound_ShouldReturnNotFound()
-    //{
-    //  // Arrange
-    //  List<Discount>? discounts = new List<Discount>();
-    //  var discountName = "40% off";
-    //  var discount = new Discount();
+    [Fact]
+    public void FindDiscountWithException_WhenNotFound_ShouldReturnNotFound()
+    {
+      // Arrange
+      List<Discount>? discounts = new List<Discount>();
+      var discountName = "40% off";
+      var discount = new Discount();
 
-    //  // Act & Assert
-    //  // var ex = Assert.Throws<KeyNotFoundException>(() => discount.FindDiscountWithException(discounts, discountName));
-    //  var ex = Assert.Throws<DiscountNotFoundException>(() => discount.FindDiscountWithException(discounts, discountName));
-    //  Assert.Equal("Discount not found", ex.Message);
-    //}
+      // Act & Assert
+      var ex = Assert.Throws<DiscountNotFoundException>(() => discount.FindDiscountWithException(discounts, discountName));
+      Assert.Equal("Discount not found", ex.Message);
+    }
 
     [Fact]
     public void FindDiscountWithTuple_WhenListIsNull_ShouldReturnNull()

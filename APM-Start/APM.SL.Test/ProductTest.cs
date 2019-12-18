@@ -256,27 +256,6 @@ namespace APM.SL.Test
       Assert.Equal("The cost must be a number 0 or greater (Parameter 'cost')", ex.Message);
     }
 
-
-
-    //[Fact]
-    //public void CalculateMarginTuple_WhenInvalidCostIsNull_ShouldGenerateError()
-    //{
-    //  // Arrange
-    //  string? cost = null;
-    //  string price = "100";
-    //  var product = new Product();
-    //  (decimal? Margin, string? Message) expected = (Margin: null, Message: "Please enter the cost");
-
-    //  // Act
-    //  var actual = product.CalculateMarginTuple(cost!, price);
-
-    //  // Assert
-    //  Assert.Equal(expected, actual);
-    //}
-
-    //
-    // CalculateTotalDiscount
-    //
     [Fact]
     public void CalculateTotalDiscount_WhenDiscount50_ShouldReturnHalf()
     {
@@ -324,7 +303,7 @@ namespace APM.SL.Test
       var product = new Product();
 
       // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscount(price, discount!));
+      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscount(price, discount));
       Assert.Equal("Please specify a discount", ex.Message);
     }
 
@@ -342,22 +321,6 @@ namespace APM.SL.Test
       // Act & Assert
       var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscount(price, discount));
       Assert.Equal("Please enter the price", ex.Message);
-    }
-
-    [Fact]
-    public void CalculateTotalDiscount_WhenPercentOffIsNull_ShouldReturnError()
-    {
-      // Arrange
-      var price = 200;
-      var discount = new Discount()
-      {
-        PercentOff = null
-      };
-      var product = new Product();
-
-      // Act & Assert
-      var ex = Assert.Throws<ArgumentException>(() => product.CalculateTotalDiscount(price, discount));
-      Assert.Equal("Please specify a discount", ex.Message);
     }
 
     //
