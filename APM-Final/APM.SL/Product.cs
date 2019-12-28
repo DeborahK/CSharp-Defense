@@ -15,15 +15,12 @@ namespace APM.SL
     public string Category { get; set; } = "";
 
     public List<Discount>? Discounts { get; set; }
-    // public List<Discount> Discounts { get; set; } = new List<Discount>();
 
     public Discount? ProductDiscount { get; set; }
-    // public Discount ProductDiscount { get; set; } = new Discount();
 
     public string ProductName { get; set; } = "";
 
     public string Reason { get; set; } = "";
-
 
 
     /// <summary>
@@ -37,10 +34,12 @@ namespace APM.SL
       Guard.ThrowIfNullOrEmpty(costInput, "Please enter the cost", "cost");
       Guard.ThrowIfNullOrEmpty(priceInput, "Please enter the price", "price");
 
-      var cost = Guard.ThrowIfNotPositiveDecimal(costInput, "The cost must be a number 0 or greater", "cost");
-      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, "The price must be a number greater than 0", "price");
+      var cost = Guard.ThrowIfNotPositiveDecimal(costInput, 
+              "The cost must be a number 0 or greater", "cost");
+      var price = Guard.ThrowIfNotPositiveNonZeroDecimal(priceInput, 
+              "The price must be a number greater than 0", "price");
 
-      decimal margin = Math.Round(((price - cost) / price) * 100M);
+      var margin = Math.Round(((price - cost) / price) * 100M);
 
       return margin;
     }
@@ -153,8 +152,6 @@ namespace APM.SL
     {
       if (price <= 0) throw new ArgumentException("Please enter the price");
 
-      // if (discount is null) throw new ArgumentException("Please specify a discount");
-      // if (discount.PercentOff is null) throw new ArgumentException("Please specify a discount");
       if (discount?.PercentOff is null) throw new ArgumentException("Please specify a discount");
 
       var discountAmount = price * (discount.PercentOff.Value / 100);
@@ -162,16 +159,6 @@ namespace APM.SL
       return discountAmount;
     }
 
-    public decimal CalculateTotalOriginal(decimal price, Discount discount)
-    {
-      if (price <= 0) throw new ArgumentException("Please enter the price");
-
-      if (discount is null) throw new ArgumentException("Please specify a discount");
-
-      var discountAmount = price * (discount.PercentOffOriginal / 100);
-
-      return discountAmount;
-    }
 
     /// <summary>
     /// Saves pricing details.
@@ -240,7 +227,11 @@ namespace APM.SL
 
     public bool ValidateEffectiveDateWithRef(DateTime? effectiveDate, ref string validationMessage)
     {
-      if (!effectiveDate.HasValue) return false;
+      if (!effectiveDate.HasValue)
+      {
+        validationMessage = "Date has no value";
+        return false;
+      };
 
       if (effectiveDate.Value < DateTime.Now.AddDays(7))
       {
@@ -254,7 +245,11 @@ namespace APM.SL
     public bool ValidateEffectiveDateWithOut(DateTime? effectiveDate, out string validationMessage)
     {
       validationMessage = "";
-      if (!effectiveDate.HasValue) return false;
+      if (!effectiveDate.HasValue)
+      {
+        validationMessage = "Date has no value";
+        return false;
+      };
 
       if (effectiveDate.Value < DateTime.Now.AddDays(7))
       {

@@ -96,7 +96,11 @@ namespace APM.SL
 
     public bool ValidateEffectiveDateWithRef(DateTime? effectiveDate, ref string validationMessage)
     {
-      if (!effectiveDate.HasValue) return false;
+      if (!effectiveDate.HasValue)
+      {
+        validationMessage = "Date has no value";
+        return false;
+      };
 
       if (effectiveDate.Value < DateTime.Now.AddDays(7))
       {
@@ -110,7 +114,11 @@ namespace APM.SL
     public bool ValidateEffectiveDateWithOut(DateTime? effectiveDate, out string validationMessage)
     {
       validationMessage = "";
-      if (!effectiveDate.HasValue) return false;
+      if (!effectiveDate.HasValue)
+      {
+        validationMessage = "Date has no value";
+        return false;
+      };
 
       if (effectiveDate.Value < DateTime.Now.AddDays(7))
       {

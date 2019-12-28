@@ -1,4 +1,5 @@
-﻿using System;
+﻿using APM.Utilities;
+using System;
 using System.Collections.Generic;
 
 namespace APM.SL
@@ -9,8 +10,6 @@ namespace APM.SL
     public string DiscountName { get; set; } = "";
 
     public decimal? PercentOff { get; set; }
-
-    public decimal PercentOffOriginal { get; set; }
 
     // ... Discount details
 
@@ -25,11 +24,13 @@ namespace APM.SL
 
     public Discount FindDiscountWithException(List<Discount>? discounts, string discountName)
     {
-      if (discounts is null) throw new ArgumentException("No discounts found");
+      if (discounts is null) 
+        throw new ArgumentException("No discounts found");
 
       var foundDiscount = discounts.Find(d => d.DiscountName == discountName);
 
-      if (foundDiscount is null) throw new DiscountNotFoundException("Discount not found");
+      if (foundDiscount is null) 
+        throw new DiscountNotFoundException("Discount not found");
 
       return foundDiscount;
     }

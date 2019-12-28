@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace APM.SL
+namespace APM.Utilities
 {
   [Serializable()]
   public class DiscountNotFoundException : System.Exception
